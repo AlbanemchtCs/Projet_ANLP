@@ -1,4 +1,4 @@
-# :globe_with_meridians: Projet Noise2Noise DeepLearning
+# :globe_with_meridians: Projet Intent Classification ANLP
 Projet pour le cours d'Advanced Natural Language Processing à CentraleSupélec. 
 
 ## 🎯 Objectifs
