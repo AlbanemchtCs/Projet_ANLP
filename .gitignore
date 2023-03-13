@@ -1,0 +1,8 @@
+# Data
+X
+
+# Byte-compiled
+__pycache__/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
