@@ -19,7 +19,6 @@ Notre répertoire est segmenté en X fichiers python, X jupyter notebooks, deux 
 ├── requirements.txt 
 ├── X
 │     ├── X
-│     ├── X
 │     └── X
 └── X
       └──  x
