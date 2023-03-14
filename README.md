@@ -1,7 +1,7 @@
 # :globe_with_meridians: Projet Intents Classification for Neural Text Generation
 Projet pour le cours d'Advanced Natural Language Processing à CentraleSupélec. 
 
-Le sujet du projet peut être récupéré sur [GitHub](https://github.com/PierreColombo/NLP_CS/tree/main/project).
+Le sujet du projet peut être récupéré sur [GitHub](https://github.com/PierreColombo/NLP_CS/blob/main/project/project_3_intent.md).
 
 ## 🎯 Objectif
 Le but du projet est d'implémenter un classificateur d'intention. 
@@ -11,6 +11,8 @@ L'identification à la fois des actes de dialogue (DA) et des émotions/sentimen
 
 ## :page_facing_up: Énoncé du problème
 Nous commençons par définir formellement le problème d'étiquetage de séquences. Au niveau le plus élevé, nous avons un ensemble de conversations composées d'énoncés $D$, c'est-à-dire que $D = (C_1,C_2,\dots,C_{|D|})$ avec $Y= (Y_1,Y_2,\dots,Y_{|D|})$Y est l'ensemble correspondant d'étiquettes (par exemple, DA, E/S). À un niveau inférieur, chaque conversation $C_i$ est composée d'énoncés $u$, c'est-à-dire que $C_i= (u_1,u_2,\dots,u_{|C_i|})$ avec $Y_i = (y_1, y_2, \dots, y_{|C_i|})$ étant la séquence d'étiquettes correspondante : chaque $u_i$ est associé à une étiquette unique $y_i$. Au niveau le plus bas, chaque énoncé $u_i$ peut être vu comme une séquence de mots, c'est-à-dire, $u_i = (\omega^i_1, \omega^i_2, \dots, \omega^i_{|u_i|})$.
+
+Le but est de prédire Y à partir de D.
 
 ## 🤔 Choix techniques
 ### 📊 Dataset
@@ -27,16 +29,17 @@ Voici la composition des différents sous-datasets:
 
 Nous choisissons le sous-dataset `loria` qui semble un bon compromis entre nombre d'énoncés et précision des résultats.
 
-### 🔡 Tokenizer
-Nous faisons le choix d'utiliser un tokenizer mBERT (multilingual BERT) qui est une version multilingue du modèle BERT (Bidirectional Encoder Representations from Transformers), qui est pré-entraîné sur un grand corpus de textes dans plusieurs langues.
+### 🔡 Tokenizer 
+Nous mettons en place un tokenizer mBERT qui fonctionne en divisant les mots en sous-mots en utilisant l'algorithme de tokenization par sous-mots, en ajoutant des tokens spéciaux et en encodant les tokens en embeddings. Cette approche permet au modèle mBERT de traiter plusieurs langues et de généraliser mieux en résolvant le problème de l'out-of-vocabulary.
+
+### 🤖 Modèle
+Nous faisons le choix d'utiliser le modèle mBERT (multilingual BERT) qui est une version multilingue du modèle BERT (Bidirectional Encoder Representations from 
+Transformers), qui est pré-entraîné sur un grand corpus de textes dans plusieurs langues.
 
 mBERT permet de traiter plusieurs langues sans avoir besoin de modèles de langage spécifiques pour chaque langue, ce qui permet une meilleure généralisation.
 
-De plus, mBERT est particulièrement efficace pour le traitement de textes complexes, tels que les textes scientifiques ou techniques, les textes juridiques ou les documents gouvernementaux.
-
-### 🤖 Modèle
-
-
+De plus, mBERT est particulièrement efficace pour le traitement de textes complexes, tels que les textes scientifiques ou techniques, les textes juridiques ou les 
+documents gouvernementaux.
 
 ## :card_index_dividers: Segmentation
 Notre répertoire est segmenté en X fichiers python, X jupyter notebooks, deux fichiers markdown, un fichier .gitinore et un fichier texte pour les requirements :
