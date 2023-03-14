@@ -1,48 +1,46 @@
-# :globe_with_meridians: Projet Intents Classification for Neural Text Generation
-Projet pour le cours d'Advanced Natural Language Processing à CentraleSupélec. 
+# :globe_with_meridians: Intents Classification for Neural Text Generation Project
+Project for the Advanced Natural Language Processing course at CentraleSupélec.
 
-Le sujet du projet peut être récupéré sur [GitHub](https://github.com/PierreColombo/NLP_CS/blob/main/project/project_3_intent.md).
+The subject of the project can be found on [GitHub](https://github.com/PierreColombo/NLP_CS/blob/main/project/project_3_intent.md).
 
-## 🎯 Objectif
-Le but du projet est d'implémenter un classificateur d'intention. 
+## 🎯 Objective
+The aim of the project is to implement an intent classifier.
 
-## 📌 Contexte et enjeux
-L'identification à la fois des actes de dialogue (DA) et des émotions/sentiments (E/S) dans le langage parlé est une étape importante pour améliorer les performances des modèles sur les tâches de dialogue spontané. En particulier, il est essentiel d'éviter le problème de la réponse générique, c'est-à-dire qu'un système de dialogue automatique génère une réponse non spécifique - qui peut être une réponse à un très grand nombre d'énoncés de l'utilisateur. Les DAs et les émotions sont identifiés grâce à des systèmes d'étiquetage de séquences qui sont formés de manière supervisée. Les DAs et les émotions ont été particulièrement utiles pour former ChatGPT.
+## 📌 Context and issues
+The identification of both Dialog Acts (DA) and Emotion/Sentiment (E/S) in spoken language is an important step toward improving model performances on spontaneous dialogue task. Especially, it is essential to avoid the generic response problem, i.e., having an automatic dialog system generate an unspecific response — that can be an answer to a very large number of user utterances. DAs and emotions are identified through sequence labeling systems that are trained in a supervised manner DAs and emotions have been particularly useful for training ChatGPT.
 
-## :page_facing_up: Énoncé du problème
-Nous commençons par définir formellement le problème d'étiquetage de séquences. Au niveau le plus élevé, nous avons un ensemble de conversations composées d'énoncés $D$, c'est-à-dire que $D = (C_1,C_2,\dots,C_{|D|})$ avec $Y= (Y_1,Y_2,\dots,Y_{|D|})$Y est l'ensemble correspondant d'étiquettes (par exemple, DA, E/S). À un niveau inférieur, chaque conversation $C_i$ est composée d'énoncés $u$, c'est-à-dire que $C_i= (u_1,u_2,\dots,u_{|C_i|})$ avec $Y_i = (y_1, y_2, \dots, y_{|C_i|})$ étant la séquence d'étiquettes correspondante : chaque $u_i$ est associé à une étiquette unique $y_i$. Au niveau le plus bas, chaque énoncé $u_i$ peut être vu comme une séquence de mots, c'est-à-dire, $u_i = (\omega^i_1, \omega^i_2, \dots, \omega^i_{|u_i|})$.
+## :page_facing_up: Problem statement
+We start by formally defining the Sequence Labelling Problem. At the highest level, we have a set $D$ of conversations composed of utterances, i.e., $D = (C_1,C_2,\dots,C_{|D|})$ with $Y= (Y_1,Y_2,\dots,Y_{|D|})$ being the corresponding set of labels (e.g., DA,E/S). At a lower level each conversation $C_i$ is composed of utterances $u$, i.e $C_i= (u_1,u_2,\dots,u_{|C_i|})$ with $Y_i = (y_1, y_2, \dots, y_{|C_i|})$ being the corresponding sequence of labels: each $u_i$ is associated with a unique label $y_i$. At the lowest level, each utterance $u_i$ can be seen as a sequence of words, i.e $u_i = (\omega^i_1, \omega^i_2, \dots, \omega^i_{|u_i|})$.
 
-Le but est de prédire Y à partir de D.
+The goal is to predict Y from D !
 
-## 🤔 Choix techniques
+## 🤔 Technical choices
 ### 📊 Dataset
-Nous avons repris le dataset utilisé dans le papier original suivant [Code-switched inspired losses for generic spoken dialog representations](https://arxiv.org/pdf/2108.12465.pdf). Le dataset complet est disponible sur [Hugging Face](https://huggingface.co/datasets/miam).
-Voici la composition des différents sous-datasets:
+We have taken the dataset used in the following original paper [Code-switched inspired losses for generic spoken dialog representations](https://arxiv.org/pdf/2108.12465.pdf). The full dataset is available on [Hugging Face](https://huggingface.co/datasets/miam).
+Here is the composition of the different sub-datasets:
 
-| Nom du dataset           | Langue                                             | Train                    | Valid                    | Test                    |
+| Dataset name          | Language                                             | Train                    | Valid                    | Test                    |
 |--------------------------|----------------------------------------------------|--------------------------|--------------------------|-------------------------|
-| dihana                   | Espagnol                                           | 19063                    | 2123                     |2361                     |     
-| ilisten                  | Italie                                             | 1986                     | 230                      |971                      |    
-| loria                    | Français                                           | 8465                     | 942                      |1047                     |    
-| maptask                  | Anglais                                            | 25382                    | 5221                     |5335           |             
-| vm2                      | Allemand                                           | 25060                    | 2860                     |2855   |         
+| dihana                   | Spanish                                           | 19063                    | 2123                     |2361                     |     
+| ilisten                  | Italian                                             | 1986                     | 230                      |971                      |    
+| loria                    | French                                           | 8465                     | 942                      |1047                     |    
+| maptask                  | English                                            | 25382                    | 5221                     |5335           |             
+| vm2                      | German                                           | 25060                    | 2860                     |2855   |         
 
-Nous choisissons le sous-dataset `loria` qui semble un bon compromis entre nombre d'énoncés et précision des résultats.
+We choose the sub-dataset `loria` which seems to be a good compromise between number of utterance and accuracy of results.
 
 ### 🔡 Tokenizer 
-Nous mettons en place un tokenizer mBERT qui fonctionne en divisant les mots en sous-mots en utilisant l'algorithme de tokenization par sous-mots, en ajoutant des tokens spéciaux et en encodant les tokens en embeddings. Cette approche permet au modèle mBERT de traiter plusieurs langues et de généraliser mieux en résolvant le problème de l'out-of-vocabulary.
+We implement an mBERT tokenizer that works by splitting words into subwords using the subword tokenization algorithm, adding special tokens and encoding the tokens into embeddings. This approach allows the mBERT model to handle multiple languages and to generalise better by solving the out-of-vocabulary problem.
 
-### 🤖 Modèle
-Nous faisons le choix d'utiliser le modèle mBERT (multilingual BERT) qui est une version multilingue du modèle BERT (Bidirectional Encoder Representations from 
-Transformers), qui est pré-entraîné sur un grand corpus de textes dans plusieurs langues.
+### 🤖 Model
+We choose to use the mBERT (multilingual BERT) model which is a multilingual version of the BERT (Bidirectional Encoder Representations from Transformers), which is pre-trained on a large corpus of texts in several languages.
 
-mBERT permet de traiter plusieurs langues sans avoir besoin de modèles de langage spécifiques pour chaque langue, ce qui permet une meilleure généralisation.
+mBERT allows for processing multiple languages without the need for language-specific models for each language, which enables better generalization.
 
-De plus, mBERT est particulièrement efficace pour le traitement de textes complexes, tels que les textes scientifiques ou techniques, les textes juridiques ou les 
-documents gouvernementaux.
+Moreover, mBERT is particularly efficient for processing complex texts, such as scientific or technical texts, legal texts or government documents.
 
 ## :card_index_dividers: Segmentation
-Notre répertoire est segmenté en X fichiers python, X jupyter notebooks, deux fichiers markdown, un fichier .gitinore et un fichier texte pour les requirements :
+Our directory is split into X python files, X jupyter notebooks, two markdown files, a .gitinore file and a text file for the requirements :
 
 ```bash 
 .
@@ -58,40 +56,40 @@ Notre répertoire est segmenté en X fichiers python, X jupyter notebooks, deux 
 
 ```
 
-- ``README.md`` contient l'ensemble des informations sur le projet pour pouvoir l'installer.
-- ``CONTRIBUTING.md`` contient l'ensemble des informations sur les normes et les pratiques de collaboration et de gestion du projet.
-- ``.gitignore`` contient les fichiers qui doivent être ignorés lors de l'ajout de fichiers au dépôt Git.
-- ``requirements.txt`` contient la liste des modules et des bibliothèques Python qui doivent être installés, ainsi que leur version spécifique.
+- ``README.md`` contains all the information about the project in order to install it.
+- ``CONTRIBUTING.md`` contains all the information on standards and practices for collaboration and project management.
+- ``.gitignore`` contains files that should be ignored when adding files to the Git repository.
+- ``requirements.txt`` contains a list of Python modules and libraries that need to be installed, and their specific version.
 
 ## :wrench: Installation
-Pour lancer, nous vous recommandons sur un terminal uniquement :
+To run the code, we recommend on a terminal only:
 
-1. Tout d'abord, assurez-vous que vous avez installé une version `python` supérieure à 3.9. Nous vous conseillons un environnement conda avec la commande suivante : 
+1. First of all, make sure you have installed a `python` version higher than 3.9. We recommend a conda environment with the following command :
 ```bash
 conda create --name intent_classification python=3.9
 ```
-- Pour activer l'environnement :
+- To activate the environment :
 ```bash
 conda activate intent_classification
 ```
-- Pour accéder au répertoire : 
+- To access the directory : 
 ```bash
 cd projet_anlp
 ```
 
-2. Vous devez ensuite installer tous les `requirements` en utilisant la commande suivante :
+2. You must then install all the `requirements` using the following command :
 ```bash
 pip install -r requirements.txt
 ```
 
-Exécuter ensuite les notebooks jupyter dans l'ordre suivant : 
+Then run the jupyter notebooks in the following order :
 
 1. X
 2. X
 3. X
 4. X
 
-## :pencil2: Auteurs
+## :pencil2: Authors
 - MICHOT Albane
 - NONCLERCQ Rodolphe
 
