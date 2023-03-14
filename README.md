@@ -1,7 +1,7 @@
 # :globe_with_meridians: Projet Intents Classification for Neural Text Generation
 Projet pour le cours d'Advanced Natural Language Processing à CentraleSupélec. 
 
-Le sujet du projet peut être récupéré sur [GitHub]{https://github.com/PierreColombo/NLP_CS/blob/main/project/project_3_intent.md}.
+Le sujet du projet peut être récupéré sur [GitHub]{https://github.com/PierreColombo/NLP_CS/tree/main/project}.
 
 ## 🎯 Objectif
 Le but du projet est d'implémenter un classificateur d'intention. 
@@ -14,7 +14,7 @@ Nous commençons par définir formellement le problème d'étiquetage de séquen
 
 ## 🤔 Choix techniques
 ### 📊 Dataset
-Nous avons repris le dataset utilisé dans le papier original suivant [Code-switched inspired losses for spoken dialog representations]{https://aclanthology.org/2021.emnlp-main.656/}. Le dataset complet est disponible sur [Hugging Face]{https://huggingface.co/datasets/miam}.
+Nous avons repris le dataset utilisé dans le papier original suivant [Code-switched_inspired_losses_for_generic_spoken_dialog_representations]{https://arxiv.org/pdf/2108.12465.pdf}. Le dataset complet est disponible sur [Hugging-Face]{https://huggingface.co/datasets/miam}.
 Voici la composition des différents sous-datasets:
 
 | Nom du dataset           | Langue                                             | Train                    | Valid                    | Test                    |
