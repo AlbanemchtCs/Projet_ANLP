@@ -121,6 +121,9 @@ def exec_test(model,tokenizer,dataset):
         val_acc = total_correct / total_samples
         print('test Acc:', val_acc)
 
+"""
+###EXAMPLE###
+
 #Load Dataset
 dataset = datasets.load_dataset('miam.py','loria')
 
@@ -133,4 +136,5 @@ model = BertForSequenceClassification.from_pretrained('bert-base-multilingual-ca
 exec_train(model,tokenizer,datasets.concatenate_datasets([dataset['train'],dataset['validation']]))
 exec_test(model,tokenizer,dataset['test'])
 
+"""
 
