@@ -27,7 +27,7 @@ Here is the composition of the different sub-datasets:
 | maptask                  | English                                            | 25382                    | 5221                     |5335           |             
 | vm2                      | German                                           | 25060                    | 2860                     |2855   |         
 
-We choose the sub-dataset `loria` which seems to be a good compromise between number of utterance and accuracy of results.
+We decided to implement our model on the different datasets in order to see if the multilingual model that we implemented works well.
 
 ### 🔡 Tokenizer 
 We implement an mBERT tokenizer that works by splitting words into subwords using the subword tokenization algorithm, adding special tokens and encoding the tokens into embeddings. This approach allows the mBERT model to handle multiple languages and to generalise better by solving the out-of-vocabulary problem.
@@ -40,7 +40,7 @@ mBERT allows for processing multiple languages without the need for language-spe
 Moreover, mBERT is particularly efficient for processing complex texts, such as scientific or technical texts, legal texts or government documents.
 
 ## :card_index_dividers: Segmentation
-Our directory is split into X python files, X jupyter notebooks, two markdown files, a .gitinore file and a text file for the requirements :
+Our directory is split into two python files, two jupyter notebooks, two markdown files, a .gitinore file and a text file for the requirements :
 
 ```bash 
 .
@@ -48,11 +48,10 @@ Our directory is split into X python files, X jupyter notebooks, two markdown fi
 ├── CONTRIBUTING.md
 ├── .gitignore
 ├── requirements.txt 
-├── X
-│     ├── X
-│     └── X
-└── X
-      └──  x
+├── miam.py
+├── datasets_visualization.ipynb
+├── train_test.py
+└── train_test.ipynb
 
 ```
 
@@ -60,6 +59,10 @@ Our directory is split into X python files, X jupyter notebooks, two markdown fi
 - ``CONTRIBUTING.md`` contains all the information on standards and practices for collaboration and project management.
 - ``.gitignore`` contains files that should be ignored when adding files to the Git repository.
 - ``requirements.txt`` contains a list of Python modules and libraries that need to be installed, and their specific version.
+- ``miam.py`` is the python file that extracts the datasets.
+- ``datasets_visualization.ipynb`` enables to visualize the different datasets with their class.
+- ``train_test.py`` is the python file that allows us to run our m-BERT model with the tokenizer.
+- ``train_test.ipynb`` contains the python file ``train_test.py`` and allows to save our results for the different datasets.
 
 ## :wrench: Installation
 To run the code, we recommend on a terminal only:
@@ -82,12 +85,10 @@ cd projet_anlp
 pip install -r requirements.txt
 ```
 
-Then run the jupyter notebooks in the following order :
-
-1. X
-2. X
-3. X
-4. X
+3. Run the model using the following command :
+```bash
+python3 train_test.py
+```
 
 ## :pencil2: Authors
 - MICHOT Albane
