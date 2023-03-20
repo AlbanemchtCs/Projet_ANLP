@@ -51,7 +51,7 @@ Our directory is split into two python files, two jupyter notebooks, two markdow
 ├── miam.py
 ├── datasets_visualization.ipynb
 ├── train_test.py
-└── train_test.ipynb
+└── results.ipynb
 
 ```
 
@@ -62,7 +62,7 @@ Our directory is split into two python files, two jupyter notebooks, two markdow
 - ``miam.py`` is the python file that extracts the datasets.
 - ``datasets_visualization.ipynb`` enables to visualize the different datasets with their class.
 - ``train_test.py`` is the python file that allows us to run our m-BERT model with the tokenizer.
-- ``train_test.ipynb`` is based upon the python file ``train_test.py`` and allows to save our results for the different datasets.
+- ``results.ipynb`` is based upon the python file ``train_test.py`` and allows to save our results for the different datasets.
 
 ## :wrench: Installation
 To run the code, we recommend on a terminal only:
