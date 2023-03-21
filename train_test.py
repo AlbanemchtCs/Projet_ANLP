@@ -13,6 +13,7 @@ from transformers import BertTokenizer,BertForSequenceClassification,AutoModelFo
 from progressbar import progressbar
 from tqdm import tqdm
 import seaborn as sns
+import matplotlib.pyplot as plt
 def encode_text_dataset(dataset, model_name, output_dir):
     # Charger le modèle mBERT pré-entraîné
     tokenizer = BertTokenizer.from_pretrained(model_name)
@@ -162,7 +163,9 @@ for i in range(w.shape[0]):
     if w[i] == 0:
         w[i] = 1
 w = np.expand_dims(w,axis=1)
-heatmap = sns.heatmap(M/w,annot=True)
+
+fig, ax = plt.subplots(figsize=(12, 10))
+heatmap = sns.heatmap(M/w, annot=True, ax=ax)
 heatmap.set_xlabel("Predictions")
 heatmap.set_ylabel("Labels")
 """
